@@ -483,9 +483,9 @@ class unpacker {
   STRUCT_PACK_INLINE std::pair<struct_pack::err_code, std::uint64_t>
   deserialize_compatible(unsigned compatible_sz_len) {
     constexpr std::size_t sz[] = {0, 2, 4, 8};
-    auto len_sz = sz[compatible_sz_len];
+    [[maybe_unused]] auto len_sz = sz[compatible_sz_len];
     std::size_t data_len = 0;
-    bool result;
+    [[maybe_unused]] bool result;
     switch (compatible_sz_len) {
       case 1:
         if SP_LIKELY (low_bytes_read_wrapper<2>(reader_, data_len)) {
@@ -875,7 +875,7 @@ class unpacker {
       }
       else if constexpr (container<type>) {
         std::size_t size = 0;
-        bool result{};
+        [[maybe_unused]] bool result{};
         if constexpr (size_type == 1) {
           if SP_UNLIKELY (!low_bytes_read_wrapper<size_type>(reader_, size)) {
             return struct_pack::errc::no_buffer_space;
